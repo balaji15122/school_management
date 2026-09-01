@@ -21,14 +21,41 @@ const PORT = process.env.PORT || 5050;
 
 // Security & Utility Middleware
 app.use(helmet({ crossOriginResourcePolicy: false }));
+// CORS Configuration - Support Vercel frontend, Flutter web, local dev, and mobile
+const allowedOrigins = [
+  'https://school-management-mauve-zeta.vercel.app',
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'http://localhost:5050',
+  ...(process.env.CORS_ORIGIN && process.env.CORS_ORIGIN !== '*'
+    ? process.env.CORS_ORIGIN.split(',').map((o) => o.trim().replace(/\/$/, ''))
+    : []),
+];
+
 app.use(
   cors({
-    origin: '*', // Allow Flutter Web and mobile clients
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps, curl, Postman)
+      if (!origin) return callback(null, true);
+
+      const cleanOrigin = origin.replace(/\/$/, '');
+      if (
+        allowedOrigins.includes(cleanOrigin) ||
+        cleanOrigin.endsWith('.vercel.app') ||
+        process.env.CORS_ORIGIN === '*'
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true); // Fallback: allow to avoid blocking valid clients
+    },
+    credentials: true,
     methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
     exposedHeaders: ['Content-Disposition', 'Content-Length'],
   })
 );
+app.options('*', cors());
+
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ extended: true, limit: '20mb' }));
 app.use(morgan('dev'));
