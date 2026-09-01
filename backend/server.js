@@ -32,6 +32,23 @@ const allowedOrigins = [
     : []),
 ];
 
+// Private Network Access (PNA) middleware to allow public HTTPS sites (Vercel) to talk to localhost loopback
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Private-Network', 'true');
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Private-Network', 'true');
+    res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PATCH,PUT,DELETE,OPTIONS');
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'Content-Type,Authorization,X-Requested-With,Accept,Origin,Access-Control-Request-Private-Network'
+    );
+    return res.sendStatus(204);
+  }
+  next();
+});
+
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -50,11 +67,19 @@ app.use(
     },
     credentials: true,
     methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'X-Requested-With',
+      'Accept',
+      'Origin',
+      'Access-Control-Request-Private-Network',
+    ],
     exposedHeaders: ['Content-Disposition', 'Content-Length'],
   })
 );
 app.options('*', cors());
+
 
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ extended: true, limit: '20mb' }));
