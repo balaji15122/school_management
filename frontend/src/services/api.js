@@ -1,7 +1,16 @@
 import axios from 'axios';
 import { STORAGE_KEYS } from '../utils/constants';
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5050/api';
+const getApiBaseUrl = () => {
+  const envUrl =
+    import.meta.env.VITE_API_BASE_URL ||
+    import.meta.env.VITE_API_URL ||
+    'http://localhost:5050/api';
+  const clean = envUrl.trim().replace(/\/+$/, '');
+  return clean.endsWith('/api') ? clean : `${clean}/api`;
+};
+
+const BASE_URL = getApiBaseUrl();
 
 const api = axios.create({
   baseURL: BASE_URL,
