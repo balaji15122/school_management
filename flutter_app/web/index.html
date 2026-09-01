@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Multi-Tenant School Data Management & Reporting Platform">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="School Hub">
+  <title>EduCloud — Multi-Tenant School Data Management</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body {
+      background-color: #0f172a;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      color: #94a3b8;
+    }
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(99, 102, 241, 0.2);
+      border-left-color: #6366f1;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div id="loading" class="loading-container">
+    <div class="spinner"></div>
+    <div style="font-weight: 500; font-size: 14px; letter-spacing: 0.05em;">LOADING EDUCLOUD...</div>
+  </div>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

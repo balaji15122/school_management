@@ -1,0 +1,120 @@
+### Environment Variables
+@baseUrl = http://localhost:5050/api
+@superAdminToken = ey...
+@schoolAdminToken = ey...
+
+### 1. Health Check
+GET {{baseUrl}}/health
+
+### 2. Login Super Admin
+# @name loginSuperAdmin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@platform.com",
+  "password": "admin123"
+}
+
+### 3. Login School Admin (Greenwood High)
+# @name loginSchoolAdmin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@greenwood.edu",
+  "password": "password123"
+}
+
+### 4. Register New School (Tenant Onboarding)
+POST {{baseUrl}}/auth/register-school
+Content-Type: application/json
+
+{
+  "schoolName": "Oakridge International School",
+  "schoolCode": "OIS2026",
+  "schoolAddress": "Bowrampet, Hyderabad",
+  "schoolContactEmail": "admissions@oakridge.edu",
+  "schoolContactPhone": "+91 40-66778899",
+  "adminName": "Principal Williams",
+  "adminEmail": "principal@oakridge.edu",
+  "adminPhone": "+91 40-66778890",
+  "adminPassword": "password123"
+}
+
+### 5. Get Current User Profile (Me)
+GET {{baseUrl}}/auth/me
+Authorization: Bearer {{superAdminToken}}
+
+### 6. Get Dashboard Statistics
+GET {{baseUrl}}/dashboard/stats
+Authorization: Bearer {{superAdminToken}}
+
+### 7. List All Schools (Super Admin Only)
+GET {{baseUrl}}/schools
+Authorization: Bearer {{superAdminToken}}
+
+### 8. Upload / Create Student Record (School Admin)
+POST {{baseUrl}}/students
+Authorization: Bearer {{schoolAdminToken}}
+Content-Type: application/json
+
+{
+  "name": "Oliver Queen",
+  "admissionNumber": "GWH-199",
+  "class": "Grade 10",
+  "section": "A",
+  "rollNumber": "18",
+  "dob": "2010-05-15",
+  "gender": "male",
+  "bloodGroup": "O+",
+  "academicSession": "2026–27",
+  "status": "draft"
+}
+
+### 9. Forward Student Record to Super Admin
+PATCH {{baseUrl}}/students/STUDENT_ID_HERE/forward
+Authorization: Bearer {{schoolAdminToken}}
+Content-Type: application/json
+
+{}
+
+### 10. List Students (Tenant-Scoped with Search & Filters)
+GET {{baseUrl}}/students?class=Grade%2010&status=forwarded&page=1&limit=10
+Authorization: Bearer {{schoolAdminToken}}
+
+### 11. Verify / Reject Student Record (Super Admin)
+PATCH {{baseUrl}}/students/STUDENT_ID_HERE/status
+Authorization: Bearer {{superAdminToken}}
+Content-Type: application/json
+
+{
+  "status": "verified"
+}
+
+### 12. Bulk Update Status (Super Admin)
+PATCH {{baseUrl}}/students/bulk/status
+Authorization: Bearer {{superAdminToken}}
+Content-Type: application/json
+
+{
+  "ids": ["ID_1", "ID_2"],
+  "status": "verified"
+}
+
+### 13. Export Single School Excel (.xlsx)
+GET {{baseUrl}}/export/school/SCHOOL_ID_HERE/xlsx
+Authorization: Bearer {{schoolAdminToken}}
+
+### 14. Export All Schools as Multi-Sheet Master Workbook (.xlsx) (Super Admin Only)
+GET {{baseUrl}}/export/all/xlsx
+Authorization: Bearer {{superAdminToken}}
+
+### 15. Export Filtered Records (.xlsx)
+GET {{baseUrl}}/export/filtered/xlsx?class=Grade%2010&status=verified
+Authorization: Bearer {{superAdminToken}}
+
+### 16. Export History Log
+GET {{baseUrl}}/export/history
+Authorization: Bearer {{superAdminToken}}
+

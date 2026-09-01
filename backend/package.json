@@ -1,0 +1,31 @@
+{
+  "name": "school-management-backend",
+  "version": "1.0.0",
+  "description": "Multi-Tenant School Data Management Backend API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node seed.js",
+    "test": "node --test tests/**/*.test.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1121.0",
+    "archiver": "^8.0.0",
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.11.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5",
+    "morgan": "^1.10.0",
+    "zod": "^3.24.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Flutter App (Chrome)",
+      "cwd": "flutter_app",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": ["-d", "chrome", "--web-port", "3000"]
+    },
+    {
+      "name": "Flutter App (macOS)",
+      "cwd": "flutter_app",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": ["-d", "macos"]
+    },
+    {
+      "name": "Backend Server",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/backend",
+      "program": "${workspaceFolder}/backend/server.js"
+    }
+  ]
+}

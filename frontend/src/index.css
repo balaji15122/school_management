@@ -1,0 +1,376 @@
+:root {
+  /* Fonts */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+
+  /* Brand Colors */
+  --color-primary: #1E293B;
+  --color-primary-light: #334155;
+  --color-primary-dark: #0F172A;
+  --color-accent: #2563EB;
+  --color-accent-hover: #1D4ED8;
+  --color-accent-light: #3B82F6;
+  --color-accent-subtle: #EFF6FF;
+  --color-secondary: #475569;
+  --color-secondary-light: #64748B;
+
+  /* Status Colors */
+  --color-success: #16A34A;
+  --color-success-bg: #F0FDF4;
+  --color-success-text: #15803D;
+
+  --color-warning: #D97706;
+  --color-warning-bg: #FFFBEB;
+  --color-warning-text: #B45309;
+
+  --color-error: #DC2626;
+  --color-error-bg: #FEF2F2;
+  --color-error-text: #B91C1C;
+
+  --color-info: #2563EB;
+  --color-info-bg: #EFF6FF;
+  --color-info-text: #1D4ED8;
+
+  /* Light Theme Surfaces (Default) */
+  --bg-canvas: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-surface-card: #FFFFFF;
+  --bg-surface-hover: #F1F5F9;
+  --bg-input: #FFFFFF;
+  --border-color: #E2E8F0;
+  --border-focus: #3B82F6;
+
+  /* Text Colors */
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+
+  /* Shadows */
+  --shadow-subtle: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --shadow-dropdown: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+}
+
+[data-theme="dark"] {
+  /* Dark Theme Surfaces */
+  --bg-canvas: #0F172A;
+  --bg-surface: #1E293B;
+  --bg-surface-card: #1E293B;
+  --bg-surface-hover: #273549;
+  --bg-input: #0F172A;
+  --border-color: #334155;
+  --border-focus: #60A5FA;
+
+  /* Dark Text */
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #64748B;
+
+  /* Status Colors Dark Mode adjustments */
+  --color-success-bg: rgba(22, 163, 74, 0.15);
+  --color-success-text: #4ADE80;
+
+  --color-warning-bg: rgba(217, 119, 6, 0.15);
+  --color-warning-text: #FBBF24;
+
+  --color-error-bg: rgba(220, 38, 38, 0.18);
+  --color-error-text: #F87171;
+
+  --color-info-bg: rgba(37, 99, 235, 0.15);
+  --color-info-text: #60A5FA;
+
+  --color-accent-subtle: rgba(37, 99, 235, 0.15);
+
+  --shadow-subtle: none;
+  --shadow-card: none;
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  --shadow-dropdown: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+/* Global Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: 14px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Typography utilities */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+/* Common Card Style */
+.card {
+  background-color: var(--bg-surface-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-subtle);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* Common Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: #FFFFFF;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--bg-surface-hover);
+}
+
+.btn-success {
+  background-color: var(--color-success);
+  color: #FFFFFF;
+}
+
+.btn-success:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.btn-danger {
+  background-color: transparent;
+  color: var(--color-error);
+  border: 1px solid var(--color-error);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: var(--color-error-bg);
+}
+
+.btn-text {
+  background: transparent;
+  color: var(--color-accent);
+  padding: 6px 10px;
+}
+
+.btn-text:hover:not(:disabled) {
+  background-color: var(--color-accent-subtle);
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: var(--radius-sm);
+}
+
+/* Form inputs */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  color: var(--text-primary);
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.form-input::placeholder, .form-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.form-error {
+  font-size: 12px;
+  color: var(--color-error);
+  margin-top: 2px;
+}
+
+/* Pill / Badge Styles */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.badge-verified {
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text);
+}
+
+.badge-forwarded, .badge-pending {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning-text);
+}
+
+.badge-rejected {
+  background-color: var(--color-error-bg);
+  color: var(--color-error-text);
+}
+
+.badge-draft {
+  background-color: rgba(148, 163, 184, 0.15);
+  color: var(--text-secondary);
+}
+
+.badge-role {
+  background-color: var(--color-accent-subtle);
+  color: var(--color-accent);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease forwards;
+}
+
+.spinner {
+  animation: spin 0.8s linear infinite;
+}
+
+/* Responsive Layout Rules */
+.mobile-menu-btn {
+  display: none !important;
+}
+
+.mobile-bottom-nav {
+  display: none !important;
+}
+
+@media (max-width: 959px) {
+  .desktop-sidebar-container {
+    display: none !important;
+  }
+
+  .mobile-menu-btn {
+    display: flex !important;
+  }
+
+  .mobile-bottom-nav {
+    display: flex !important;
+  }
+
+  .app-main-content {
+    padding: 16px 14px 72px 14px !important;
+  }
+}
+

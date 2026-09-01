@@ -1,0 +1,11 @@
+{
+  "name": "EduCloud - School Data Management",
+  "short_name": "EduCloud",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#4f46e5",
+  "description": "Multi-Tenant School Data Management & Reporting Platform",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false
+}
